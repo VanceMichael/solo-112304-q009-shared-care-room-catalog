@@ -6,7 +6,7 @@
 
 ```sh
 python3 source_fixture.py --port 8765
-python3 -m unittest -v
+python3 -m unittest discover -s tests -v
 ```
 
 ## 数据交换
