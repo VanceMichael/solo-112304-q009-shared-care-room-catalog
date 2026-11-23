@@ -36,6 +36,37 @@
       "kind": "xml",
       "body": "<permit id=\"U7\" effective=\"2026-12-01\"><room id=\"R11\" adult=\"10\" childcare=\"8\" between=\"15\"/><room id=\"R12\" childcare=\"12\"/></permit>"
     },
+    "/site/conversion": {
+      "status": 200,
+      "kind": "json",
+      "body": {
+        "shifts": [
+          {
+            "team": "clean-A",
+            "window": [
+              "12:00",
+              "12:50"
+            ],
+            "rooms": [
+              "R11",
+              "R12"
+            ]
+          }
+        ],
+        "jobs": [
+          {
+            "room": "R11",
+            "slot": "K-1",
+            "duration": 15
+          },
+          {
+            "room": "R12",
+            "slot": "K-2",
+            "duration": 10
+          }
+        ]
+      }
+    },
     "/site/handover": {
       "status": 200,
       "kind": "json",
@@ -91,12 +122,16 @@
               "F21",
               "F22"
             ],
+            "min_service": 100,
             "arrived": [],
             "available": 6
           },
           {
             "id": "K-2",
-            "reserved": [],
+            "reserved": [
+              "F26"
+            ],
+            "min_service": 80,
             "arrived": [],
             "available": 0
           },
@@ -159,6 +194,27 @@
           "status": 200,
           "kind": "xml",
           "body": "<permit id=\"U91\" effective=\"2026-12-01\"><room id=\"R91\" childcare=\"6\"/></permit>"
+        },
+        "/booking/migration": {
+          "status": 200,
+          "kind": "json",
+          "body": {
+            "candidates": [
+              {
+                "id": "F21",
+                "slot": "K-9",
+                "minutes": 100,
+                "care": "childcare"
+              },
+              {
+                "id": "F22",
+                "slot": "K-9",
+                "minutes": 70,
+                "care": "childcare"
+              }
+            ],
+            "decisions": []
+          }
         }
       }
     },
@@ -173,6 +229,25 @@
               "/permits/fire.xml",
               "/permits/use-v2.xml",
               "/permits/other.xml"
+            ]
+          }
+        },
+        "/booking/migration": {
+          "status": 200,
+          "kind": "json",
+          "body": {
+            "candidates": [],
+            "decisions": [
+              {
+                "id": "F21",
+                "to": "K-9",
+                "state": "confirmed"
+              },
+              {
+                "id": "F22",
+                "to": "K-9",
+                "state": "refused"
+              }
             ]
           }
         },
