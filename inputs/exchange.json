@@ -1,0 +1,245 @@
+{
+  "initial": {
+    "/street/centres": {
+      "status": 200,
+      "kind": "html",
+      "body": "<main><a href=\"/street/C7\">北溪服务中心</a><a href=\"/street/C8\">西原服务中心</a></main>"
+    },
+    "/street/C7": {
+      "status": 200,
+      "kind": "html",
+      "body": "<article id=\"C7\"><table><tr data-slot=\"E-1\" data-room=\"R11\"><td>成人日照</td><td>09:00–12:00</td></tr><tr data-slot=\"K-1\" data-room=\"R11\"><td>计时托育</td><td>12:20–15:00</td></tr><tr data-slot=\"K-2\" data-room=\"R12\"><td>计时托育</td><td>12:30–15:00</td></tr></table></article>"
+    },
+    "/street/C8": {
+      "status": 200,
+      "kind": "html",
+      "body": "<article id=\"C8\"><p data-slot=\"K-9\" data-room=\"R91\">计时托育 12:00–15:00</p></article>"
+    },
+    "/permits/index": {
+      "status": 200,
+      "kind": "json",
+      "body": {
+        "files": [
+          "/permits/fire.xml",
+          "/permits/use.xml",
+          "/permits/other.xml"
+        ]
+      }
+    },
+    "/permits/fire.xml": {
+      "status": 200,
+      "kind": "xml",
+      "body": "<permit id=\"F7\" effective=\"2026-12-01\"><group id=\"shared-exit\" max=\"17\"><room id=\"R11\"/><room id=\"R12\"/></group></permit>"
+    },
+    "/permits/use.xml": {
+      "status": 200,
+      "kind": "xml",
+      "body": "<permit id=\"U7\" effective=\"2026-12-01\"><room id=\"R11\" adult=\"10\" childcare=\"8\" between=\"15\"/><room id=\"R12\" childcare=\"12\"/></permit>"
+    },
+    "/site/handover": {
+      "status": 200,
+      "kind": "json",
+      "body": {
+        "day": "2026-12-05",
+        "now": "11:54",
+        "events": [
+          {
+            "room": "R11",
+            "type": "check-in",
+            "slot": "E-1",
+            "time": "09:00"
+          },
+          {
+            "room": "R12",
+            "type": "access",
+            "range": [
+              "12:00",
+              "15:00"
+            ]
+          }
+        ],
+        "staff": [
+          {
+            "team": "clean-A",
+            "rooms": [
+              "R11",
+              "R12"
+            ],
+            "from_": "12:00",
+            "until": "12:35"
+          }
+        ]
+      }
+    },
+    "/booking/slots": {
+      "status": 200,
+      "kind": "json",
+      "body": {
+        "slots": [
+          {
+            "id": "E-1",
+            "reserved": [],
+            "arrived": [
+              "E11",
+              "E12"
+            ],
+            "available": 0
+          },
+          {
+            "id": "K-1",
+            "reserved": [
+              "F21",
+              "F22"
+            ],
+            "arrived": [],
+            "available": 6
+          },
+          {
+            "id": "K-2",
+            "reserved": [],
+            "arrived": [],
+            "available": 0
+          },
+          {
+            "id": "K-9",
+            "reserved": [],
+            "arrived": [],
+            "available": 3
+          }
+        ]
+      }
+    }
+  },
+  "changes": [
+    {
+      "label": "仅到场签到，清场比预计晚",
+      "routes": {
+        "/site/handover": {
+          "status": 200,
+          "kind": "json",
+          "body": {
+            "day": "2026-12-05",
+            "now": "12:24",
+            "events": [
+              {
+                "room": "R11",
+                "type": "check-in",
+                "slot": "E-1",
+                "time": "09:00"
+              },
+              {
+                "room": "R11",
+                "type": "incoming-check-in",
+                "slot": "K-1",
+                "time": "12:20"
+              },
+              {
+                "room": "R12",
+                "type": "access",
+                "range": [
+                  "12:00",
+                  "15:00"
+                ]
+              }
+            ],
+            "staff": [
+              {
+                "team": "clean-A",
+                "rooms": [
+                  "R11",
+                  "R12"
+                ],
+                "from_": "12:00",
+                "until": "12:35"
+              }
+            ]
+          }
+        },
+        "/permits/other.xml": {
+          "status": 200,
+          "kind": "xml",
+          "body": "<permit id=\"U91\" effective=\"2026-12-01\"><room id=\"R91\" childcare=\"6\"/></permit>"
+        }
+      }
+    },
+    {
+      "label": "补签清场，托育许可部分调整",
+      "routes": {
+        "/permits/index": {
+          "status": 200,
+          "kind": "json",
+          "body": {
+            "files": [
+              "/permits/fire.xml",
+              "/permits/use-v2.xml",
+              "/permits/other.xml"
+            ]
+          }
+        },
+        "/permits/use-v2.xml": {
+          "status": 200,
+          "kind": "xml",
+          "body": "<permit id=\"U8\" supersedes=\"U7\" effective=\"2026-12-05\"><room id=\"R11\" adult=\"10\" childcare=\"6\" between=\"15\"/><room id=\"R12\" childcare=\"12\"/></permit>"
+        },
+        "/site/handover": {
+          "status": 200,
+          "kind": "json",
+          "body": {
+            "day": "2026-12-05",
+            "now": "12:38",
+            "events": [
+              {
+                "room": "R11",
+                "type": "clearance",
+                "previous": "E-1",
+                "time": "12:32",
+                "signed": "S-72"
+              },
+              {
+                "room": "R12",
+                "type": "access",
+                "range": [
+                  "12:00",
+                  "15:00"
+                ]
+              }
+            ],
+            "staff": [
+              {
+                "team": "clean-A",
+                "rooms": [
+                  "R11",
+                  "R12"
+                ],
+                "from_": "12:00",
+                "until": "12:35"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "forms": {
+    "/booking/manage": {
+      "operations": [
+        "open",
+        "stop",
+        "relocate"
+      ],
+      "identifier": "BKM",
+      "outcomes": {
+        "1": {
+          "relocate": {
+            "F21": "accepted",
+            "F22": "rejected"
+          },
+          "stop": {
+            "K-1": "confirmed"
+          }
+        }
+      },
+      "browser": false
+    }
+  }
+}
